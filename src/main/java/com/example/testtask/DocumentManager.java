@@ -63,18 +63,20 @@ public class DocumentManager {
         for (String authorIds : request.authorIds) {
             tempList.addAll(documentRepository.findByAuthorId(authorIds));
         }
-        documents.retainAll(tempList);
-        tempList.clear();
+        retrainFromTempList(tempList, documents);
 
         tempList.addAll(documentRepository.findByCreatedAfter(request.createdFrom));
-        documents.retainAll(tempList);
-        tempList.clear();
+        retrainFromTempList(tempList, documents);
 
         tempList.addAll(documentRepository.findByCreatedBefore(request.createdTo));
-        documents.retainAll(tempList);
-        tempList.clear();
+        retrainFromTempList(tempList, documents);
 
         return documents;
+    }
+
+    private void retrainFromTempList(List<Document> tempList, List<Document> documents){
+        documents.retainAll(tempList);
+        tempList.clear();
     }
 
     /**
