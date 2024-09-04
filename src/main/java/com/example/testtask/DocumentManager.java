@@ -1,9 +1,6 @@
 package com.example.testtask;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -109,13 +106,13 @@ public class DocumentManager {
         private String id;
         private String title;
         private String content;
-        @OneToOne
+        @ManyToOne
         @JoinColumn(name = "author_id")
         private Author author;
         private Instant created;
 
         public String toString(){
-            return id + " " + title + " " + content + " " + author.id + " " + created;
+            return "%s, %s, %s, %s, %s".formatted(id, title, content, author.id, created);
         }
     }
 

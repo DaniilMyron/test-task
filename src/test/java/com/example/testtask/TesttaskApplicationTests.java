@@ -17,6 +17,8 @@ class TesttaskApplicationTests {
 	private DocumentManager documentManager;
 	@Autowired
 	private AuthorRepository authorRepository;
+	@Autowired
+	private DocumentRepository documentRepository;
 
 	@Test
 	void contextLoads() {
@@ -25,12 +27,18 @@ class TesttaskApplicationTests {
 
 	@Test
 	void saveDocument() {
-		var author = authorRepository.save(new DocumentManager.Author("2", "danya"));
-		documentManager.save(new DocumentManager.Document("1",
+		var author = authorRepository.save(new DocumentManager.Author("11", "danya"));
+		var document = documentManager.save(new DocumentManager.Document("1",
 				"lol",
 				"lol",
 				author,
 				Instant.now()));
+		document = documentManager.save(new DocumentManager.Document("1",
+				"olo",
+				"olo",
+				author,
+				Instant.now()));
+		System.out.println(documentRepository.findById("1").toString());
 	}
 
 	@Test
